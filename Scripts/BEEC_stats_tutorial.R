@@ -7,18 +7,18 @@ rm(list=ls())
 
 # Loading Libraries ----
 library(ggplot2)
+library(dplyr)
 
 # Loading Data ----
 limpetdata <- read.table(file.choose(),header=TRUE)  # Woow, Biology is cool~~~
-limpetdata <- read.table('Data/limpet-data.txt', header = TRUE) %>%   # But we're doing it the proper way (cause reproducibility) 
-dplyr::rename(shoreheight = height)
+limpetdata <- read.table('Data/limpet-data.txt', header = TRUE)   # But we're doing it the proper way (cause reproducibility) 
 
 head(limpetdata)
 str(limpetdata)
   
 # Plotting ----
 ggplot(limpetdata, aes(x = shoreheight, y = width)) + geom_point()
-
+ggplot(limpetdata, aes(x = shoreheight, y = height)) + geom_point()
 
 
 # Descriptive Stats ---- 
@@ -32,5 +32,8 @@ model_width_shoreheight <- lm(width ~ shoreheight, data = limpetdata)
 
 summary(model_width_shoreheight)
 plot(model_width_shoreheight)
-       
-     
+
+ggplot(limpetdata, aes(x = shoreheight, y = width)) + 
+  geom_point() +
+  geom_smooth(method = "lm")   
+
