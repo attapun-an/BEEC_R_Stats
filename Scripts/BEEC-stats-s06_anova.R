@@ -15,6 +15,15 @@ birddata <- read.table('Data/Latitudebirdsdata.txt', header = TRUE)   # But we'r
 head(birddata)
 str(birddata)
 
+# Visualization and modelling ----
 #a box plot of the data. 
-ggplot(birddata, aes(x = latitude, y = weight))+
+ggplot(birddata, aes(x = Latitude, y = weight))+
   geom_boxplot()
+
+
+# ANOVA (2 steps)
+model_weight_lat <- lm(weight ~ Latitude, data = birddata)
+anova(model_weight_lat)
+
+# if our predictor is a discrete category, it will fit an ANOVA model,
+# while if it is continuous, it will fit a regression model. 
